@@ -119,7 +119,7 @@ def graf_algo_tests(matrix, points=[], weighted=False):
         ["Середній ступінь вершин", avg_degree],
     ]
 
-    print(tabulate(table_data, headers="firstrow", tablefmt="grid"))
+    print(tabulate(table_data, headers="firstrow", tablefmt="pipe"))
 
     if weighted == False:
         dfs_paths = run_dfs(G)
@@ -130,7 +130,7 @@ def graf_algo_tests(matrix, points=[], weighted=False):
             ["BFS Paths"] + [path for path in bfs_paths],
         ]
 
-        print(tabulate(paths_table, headers="firstrow", tablefmt="grid"))
+        print(tabulate(paths_table, headers="firstrow", tablefmt="pipe"))
 
         pos = nx.spring_layout(G, seed=42)
         edge_labels = {(i, j): label["weight"] for i, j, label in G.edges(data=True)}

@@ -96,7 +96,7 @@ def run_dijkstra(graph, start_node):
     plt.show()
 
 
-def graf_algo_tests(matrix, points=[], weighted=False):
+def graf_algo_tests(matrix, points=[], weighted=False, info=False):
     G = nx.DiGraph()
 
     for i, (point, duration) in enumerate(zip(points, [sum(row) for row in matrix])):
@@ -112,14 +112,16 @@ def graf_algo_tests(matrix, points=[], weighted=False):
     num_edges = G.number_of_edges()
     avg_degree = sum(dict(G.degree()).values()) / num_nodes
 
-    table_data = [
-        ["Характеристика", "Значення"],
-        ["Кількість вершин", num_nodes],
-        ["Кількість ребер", num_edges],
-        ["Середній ступінь вершин", avg_degree],
-    ]
+    if info:
+        table_data = [
+            ["Характеристика", "Значення"],
+            ["Кількість вершин", num_nodes],
+            ["Кількість ребер", num_edges],
+            ["Середній ступінь вершин", avg_degree],
+        ]
 
-    print(tabulate(table_data, headers="firstrow", tablefmt="pipe"))
+        print(tabulate(table_data, headers="firstrow", tablefmt="pipe"))
+        print("========================================================")
 
     if weighted == False:
         dfs_paths = run_dfs(G)
@@ -131,6 +133,7 @@ def graf_algo_tests(matrix, points=[], weighted=False):
         ]
 
         print(tabulate(paths_table, headers="firstrow", tablefmt="pipe"))
+        print("========================================================")
 
         pos = nx.spring_layout(G, seed=42)
         edge_labels = {(i, j): label["weight"] for i, j, label in G.edges(data=True)}
@@ -199,7 +202,7 @@ def main():
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0],
     ]
 
-    graf_algo_tests(m_sm_1, points)
+    graf_algo_tests(m_sm_1, points, info=True)
     graf_algo_tests(m_sm_2, points, weighted=True)
 
 
